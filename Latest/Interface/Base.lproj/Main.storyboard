@@ -418,7 +418,11 @@
                         <outlet property="standardUpdaterController" destination="ZIQ-oE-e1U" id="g1s-Rq-LqN"/>
                     </connections>
                 </customObject>
-                <customObject id="ZIQ-oE-e1U" customClass="SPUStandardUpdaterController"/>
+                <customObject id="ZIQ-oE-e1U" customClass="SPUStandardUpdaterController">
+                    <connections>
+                        <outlet property="updaterDelegate" destination="Voe-Tx-rLC" id="Fk1-Up-dLg"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="-207"/>

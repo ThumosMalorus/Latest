@@ -267,13 +267,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, Observer {
 		self.mainWindowController?.window?.isVisible == true
 	}
 
-	var automaticallyChecksForSelfUpdates: Bool {
-		get {
-			self.standardUpdaterController?.updater.automaticallyChecksForUpdates ?? false
-		}
-		set {
-			self.standardUpdaterController?.updater.automaticallyChecksForUpdates = newValue
-		}
+}
+
+
+// MARK: - Self-Update
+
+/// This fork must never replace itself with the official release, which lacks its additional features.
+extension AppDelegate: SPUUpdaterDelegate {
+
+	func updater(_ updater: SPUUpdater, mayPerform updateCheck: SPUUpdateCheck) throws {
+		throw NSError(domain: "LatestFork", code: 1, userInfo: [
+			NSLocalizedDescriptionKey: NSLocalizedString("Updates for this version of Latest are not installed automatically.", comment: "Error title when a self-update check is blocked in the fork."),
+			NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString("This is a custom build. Get new versions from github.com/ThumosMalorus/Latest instead.", comment: "Error message when a self-update check is blocked in the fork.")
+		])
 	}
-	    
+
 }
