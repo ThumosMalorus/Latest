@@ -181,6 +181,11 @@ extension UpdateCheckCoordinator {
 	
 	/// Returns the update source for the app at the given url.
 	static func source(forAppAt url: URL) -> App.Source? {
+		// Never update this fork itself. The official update feed would replace it with a release lacking its additional features.
+		guard url.resolvingSymlinksInPath().standardizedFileURL != Bundle.main.bundleURL.resolvingSymlinksInPath().standardizedFileURL else {
+			return nil
+		}
+		
 		return self.availableOperations.first { $0.canPerformUpdateCheck(forAppAt: url) }?.sourceType
 	}
 	
